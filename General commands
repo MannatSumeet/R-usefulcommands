@@ -1,0 +1,17 @@
+#Checking for the duplicates row:
+cat("Train data set - Number of duplicated rows:", nrow(train) - nrow(unique(train)), "\n")
+
+#% of missing data:
+sum(is.na(train)) / (nrow(train) * ncol(train))
+
+# Missing value of each variable with respect to each values of Target Variable:
+train.na.per.response <- sapply(sort(unique(train$Response)), function(x) { apply(train[train$Response == x, ], 2, function(y) { sum(is.na(y)) }) })
+train.na.per.response
+
+#To Check Duplicates:
+cat("Train data set - Number of duplicated rows:", nrow(train) - nrow(unique(train)), "\n")
+
+#To Check Constant Columns:
+train.const <- sapply(train, function(x) { length(unique(x)) == 1 })
+cat("Train data set - Number of constant columns:", sum(train.const), "\n")
+
